@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hospital Emergency Management System using HTML, CSS, and JavaScript.">
+  <title>Hospital Emergency Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand-mark" aria-hidden="true">✚</div>
+    <div>
+      <p class="eyebrow">PATIENT CARE • QUEUE MANAGEMENT</p>
+      <h1>Hospital Emergency Management System</h1>
+      <p class="subtitle">Manage patient registration, treatment priority, and patient records.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="stats-grid" aria-label="Patient statistics">
+      <article class="stat-card">
+        <span class="stat-label">Waiting patients</span>
+        <strong id="waitingCount">0</strong>
+        <span class="stat-note">In the treatment queue</span>
+      </article>
+      <article class="stat-card emergency-stat">
+        <span class="stat-label">Emergency cases</span>
+        <strong id="emergencyCount">0</strong>
+        <span class="stat-note">Highest queue priority</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Treatments completed</span>
+        <strong id="treatedCount">0</strong>
+        <span class="stat-note">Records retained below</span>
+      </article>
+    </section>
+
+    <div class="main-grid">
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">NEW PATIENT</p>
+            <h2>Patient registration</h2>
+          </div>
+          <span class="heading-icon" aria-hidden="true">＋</span>
+        </div>
+        <form id="patientForm">
+          <div class="form-grid">
+            <label>
+              Patient ID
+              <input id="patientId" name="patientId" type="text" maxlength="20" placeholder="e.g. P101" required>
+            </label>
+            <label>
+              Patient name
+              <input id="patientName" name="patientName" type="text" maxlength="80" placeholder="Enter full name" required>
+            </label>
+            <label>
+              Age
+              <input id="patientAge" name="patientAge" type="number" min="0" max="120" placeholder="Age" required>
+            </label>
+            <label>
+              Priority
+              <select id="patientPriority" name="patientPriority" required>
+                <option value="normal">Normal</option>
+                <option value="emergency">Emergency</option>
+              </select>
+            </label>
+            <label class="full-width">
+              Medical condition
+              <input id="patientCondition" name="patientCondition" type="text" maxlength="120" placeholder="Brief condition or reason for visit" required>
+            </label>
+          </div>
+          <button class="button button-primary" type="submit">＋ Register patient</button>
+          <p class="form-hint">Emergency is placed first. Patients with the same priority follow FIFO order.</p>
+          <p id="formMessage" class="message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="panel queue-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">LIVE QUEUE</p>
+            <h2>Waiting patients</h2>
+          </div>
+          <span class="queue-pill"><span class="live-dot"></span> Active queue</span>
+        </div>
+        <p class="section-description">Treatment order is based on priority, then registration time.</p>
+        <div id="waitingList" class="patient-list">
+          <div class="empty-state">
+            <span class="empty-icon" aria-hidden="true">♡</span>
+            <strong>No patients waiting</strong>
+            <span>Register a patient to begin.</span>
+          </div>
+        </div>
+        <button id="treatNextBtn" class="button button-dark" type="button">Complete treatment for next patient</button>
+        <p id="treatmentMessage" class="message" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+
+    <section class="panel records-panel">
+      <div class="panel-heading records-heading">
+        <div>
+          <p class="eyebrow">RECORD MAINTENANCE</p>
+          <h2>Patient records</h2>
+          <p class="section-description">Search registered patients, including those whose treatment is complete.</p>
+        </div>
+        <div class="record-tools">
+          <label class="search-box">
+            <span class="sr-only">Search patient records</span>
+            <span aria-hidden="true">⌕</span>
+            <input id="searchInput" type="search" placeholder="Search ID, name, or condition">
+          </label>
+          <button id="clearRecordsBtn" class="button button-outline" type="button">Clear all records</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Patient ID</th>
+              <th>Patient details</th>
+              <th>Condition</th>
+              <th>Priority</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="recordsBody">
+            <tr><td colspan="5" class="table-empty">No patient records yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="storage-note"><span aria-hidden="true">●</span> This browser demo saves records in local storage on this device.</p>
+    </section>
+
+    <section class="disclaimer">
+      <strong>Academic project demonstration</strong>
+      <p>This simplified priority model is for learning data structures and is not a clinical triage system. Real patient prioritization must be performed by qualified healthcare professionals using approved protocols.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Hospital Emergency Management System</span>
+    <span>Mini Project • HTML · CSS · JavaScript</span>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
